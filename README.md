@@ -12,7 +12,7 @@ A small Swift library that sorts a failed agent attempt into one of five buckets
 | 4 | Ambiguous spec | two valid readings | answer it in the task |
 | 5 | Genuinely hard | all four inputs present | raise effort one notch; at `max`, hand to a human |
 
-Article: (added after publish)
+**Article:** [I Built 12 Failed Agent Tasks. Raising Effort Fixed One of the Ten Missing an Input.](https://medium.com/@er.rajatlakhina/i-built-12-failed-agent-tasks-raising-effort-fixed-one-of-the-ten-missing-an-input-deef1dcd6f29) (Medium)
 
 ![The triage order as a flowchart](docs/2026-10-15-failure-triage-diagram.png)
 
@@ -49,7 +49,11 @@ result.mayEscalate  // false
 
 Three tabs: **Triage** (each task's bucket, remedy and attempt trail), **Dial vs triage** (totals and per-task spend), **Checklist** (the five questions in order).
 
-Screenshots from CI's Simulator run land in `Demo/Screenshots/`.
+Real iPhone Simulator screenshots, taken by CI (`Scripts/simulator-screenshots.sh` launches the app with `-tab cases`, `-tab compare` and `-tab checklist`):
+
+| Triage | Dial vs triage | Checklist |
+|---|---|---|
+| <img src="Demo/Screenshots/triage.png" width="260" alt="Triage tab: each task with its bucket, remedy and attempt trail"> | <img src="Demo/Screenshots/compare.png" width="260" alt="Dial vs triage tab: 12/12 accepted under both, 53 vs 27 attempts, 231 vs 52.5 units, 19.25 vs 4.375 per accepted task"> | <img src="Demo/Screenshots/checklist.png" width="260" alt="Checklist tab: the five triage questions in order"> |
 
 ## How to run it
 
@@ -64,8 +68,9 @@ No other setup: `Demo.xcodeproj` consumes the library through a local package re
 
 ## Verification status
 
-- `swift build -Xswiftc -warnings-as-errors` and `swift test` (15 tests): pass on Swift 6.1.2, Linux.
-- macOS build, `Demo.xcodeproj` build and Simulator launch: run by `.github/workflows/ci.yml` on `macos-15`, which commits real screenshots back to `Demo/Screenshots/`. See the Actions tab for the latest result.
+- `swift build -Xswiftc -warnings-as-errors` and `swift test` (15 tests): pass on Swift 6.1.2 (Linux) and on `macos-15` in CI.
+- `Demo.xcodeproj`: built with `xcodebuild` for the iOS Simulator on `macos-15`, installed, and launched three times (one per tab). CI fails the job if the app isn't still running 8 seconds after launch. The screenshots above are from that run and were committed by the CI bot.
+- Nobody tapped through the UI by hand; the Simulator run is launch-and-screenshot only.
 
 ## Sources
 
