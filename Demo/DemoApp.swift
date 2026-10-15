@@ -55,8 +55,13 @@ func bucketColor(_ bucket: FailureBucket) -> Color {
     }
 }
 
+/// Exact to three decimals with trailing zeros dropped, so 19.25 and 4.375
+/// read the same here as in the tests and the article.
 func units(_ value: Double) -> String {
-    String(format: "%.1f", value)
+    var text = String(format: "%.3f", value)
+    while text.hasSuffix("0") { text.removeLast() }
+    if text.hasSuffix(".") { text.removeLast() }
+    return text
 }
 
 // MARK: - Cases
